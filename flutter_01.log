@@ -1,0 +1,73 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color run --machine --track-widget-creation --device-id=4swkauvklbkjtsfq lib/main.dart
+
+## exception
+
+FileSystemException: FileSystemException: Cannot open file, path = '/home/pchattopadhyay/AndroidStudioProjects/healthy_wheels/.packages' (OS Error: No such file or directory, errno = 2)
+
+```
+#0      _File.throwIfError (dart:io/file_impl.dart:645:7)
+#1      _File.openSync (dart:io/file_impl.dart:489:5)
+#2      _File.readAsBytesSync (dart:io/file_impl.dart:549:18)
+#3      ForwardingFile.readAsBytesSync (package:file/src/forwarding/forwarding_file.dart:95:62)
+#4      ForwardingFile.readAsBytesSync (package:file/src/forwarding/forwarding_file.dart:95:62)
+#5      _parse (package:flutter_tools/src/dart/package_map.dart:13:50)
+#6      PackageMap.load (package:flutter_tools/src/dart/package_map.dart:37:14)
+#7      PackageMap.map (package:flutter_tools/src/dart/package_map.dart:41:5)
+#8      new PackageUriMapper (package:flutter_tools/src/compile.dart:202:84)
+#9      DefaultResidentCompiler._recompile (package:flutter_tools/src/compile.dart:590:26)
+#10     _RecompileRequest._run (package:flutter_tools/src/compile.dart:415:16)
+#11     _CompilationRequest.run (package:flutter_tools/src/compile.dart:395:30)
+#12     DefaultResidentCompiler._handleCompilationRequest (package:flutter_tools/src/compile.dart:635:23)
+#13     _rootRunUnary (dart:async/zone.dart:1134:38)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1031:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:933:7)
+#16     _BufferingStreamSubscription._sendData (dart:async/stream_impl.dart:339:11)
+#17     _DelayedData.perform (dart:async/stream_impl.dart:594:14)
+#18     _StreamImplEvents.handleNext (dart:async/stream_impl.dart:710:11)
+#19     _PendingEvents.schedule.<anonymous closure> (dart:async/stream_impl.dart:670:7)
+#20     _rootRun (dart:async/zone.dart:1122:38)
+#21     _CustomZone.run (dart:async/zone.dart:1023:19)
+#22     _CustomZone.runGuarded (dart:async/zone.dart:925:7)
+#23     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:965:23)
+#24     _rootRun (dart:async/zone.dart:1126:13)
+#25     _CustomZone.run (dart:async/zone.dart:1023:19)
+#26     _CustomZone.runGuarded (dart:async/zone.dart:925:7)
+#27     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:965:23)
+#28     _microtaskLoop (dart:async/schedule_microtask.dart:43:21)
+#29     _startMicrotaskLoop (dart:async/schedule_microtask.dart:52:5)
+#30     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:118:13)
+#31     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:175:5)
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel beta, v1.13.6, on Linux, locale en_IN)
+    • Flutter version 1.13.6 at /home/pchattopadhyay/flutter
+    • Framework revision 659dc8129d (3 months ago), 2019-12-30 09:24:47 -0800
+    • Engine revision bdc9708d23
+    • Dart version 2.8.0 (build 2.8.0-dev.0.0 c547f5d933)
+
+[!] Android toolchain - develop for Android devices (Android SDK version 29.0.2)
+    • Android SDK at /home/pchattopadhyay/Android/Sdk
+    • Android NDK location not configured (optional; useful for native profiling support)
+    • Platform android-29, build-tools 29.0.2
+    • Java binary at: /snap/android-studio/84/android-studio/jre/bin/java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_212-release-1586-b4-5784211)
+    ! Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses
+
+[✓] Android Studio (version 3.6)
+    • Android Studio at /snap/android-studio/84/android-studio
+    • Flutter plugin version 44.0.2
+    • Dart plugin version 192.7761
+    • Java version OpenJDK Runtime Environment (build 1.8.0_212-release-1586-b4-5784211)
+
+[✓] Connected device (1 available)
+    • Redmi Note 8 Pro • 4swkauvklbkjtsfq • android-arm64 • Android 9 (API 28)
+
+! Doctor found issues in 1 category.
+```

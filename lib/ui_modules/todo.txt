@@ -1,0 +1,4 @@
+TODO implement cached network image for all images
+TODO login signup functionality with validation
+TODO implement forgot password
+TODO sign-in with google and phone number
