@@ -131,6 +131,7 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                     color: Colors.orange,
                     onPressed: () {
+                      print(uid);
                         Firestore.instance.collection("users").document(
                             uid
                         )

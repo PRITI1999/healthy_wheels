@@ -6,25 +6,24 @@ import 'package:healthywheels/util/product_property.dart';
 
 class ShowProducts extends StatelessWidget {
   Iterable<String> products;
-  var documentIds = [];
   String categoryName;
   String uid;
   ShowProducts(this.categoryName, this.uid);
+
+  makeProductCards(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+    return snapshot.data.documents.map((doc){
+      var currentProduct = getProductDetails(json.encode(doc.data));
+      return Container(child: ProductCard(currentProduct, uid),);
+    }).toList();
+  }
 
   Widget _showProducts(BuildContext context, String categoryName) {
     return new StreamBuilder(
       stream: Firestore.instance.collection("categories")
           .document(categoryName).collection("products").snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-        documentIds = snapshot.data.documents.map((doc) => doc.documentID).toList();
-        products = snapshot.data.documents.map((doc) => json.encode(doc.data));
-        return ListView.builder(
-          itemCount: products.length,
-          itemBuilder: (context, index) {
-            return Container(
-              child: ProductCard(getProductDetails(products.elementAt(index)), uid)
-            );
-          },
+        return ListView(
+          children: makeProductCards(context, snapshot),
         );
       },
     );

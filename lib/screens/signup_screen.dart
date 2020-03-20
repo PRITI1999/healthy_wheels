@@ -234,7 +234,7 @@ class SignupPageState extends State<SignupPage> {
                               .then((result) => {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => BasicPage(0)
+                                    builder: (context) => BasicPage(0, currentUser.user.uid)
                                   )
                                 )
                           })

@@ -162,7 +162,7 @@ class LoginPageState extends State<LoginPage> {
                           .then((DocumentSnapshot result) => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BasicPage(0),
+                              builder: (context) => BasicPage(0, currentUser.user.uid),
                             ),
                             ))
                           .catchError((err) => print(err))

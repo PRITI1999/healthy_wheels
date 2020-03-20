@@ -3,11 +3,17 @@ import 'package:healthywheels/util/show_categories.dart';
 import 'package:healthywheels/ui_modules/custom_clippers.dart';
 
 class HomePage extends StatefulWidget {
+  String uid;
+  HomePage(String uid){
+    this.uid = uid;
+  }
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(uid);
 }
 
 class _HomePageState extends State<HomePage> {
+  String uid;
+  _HomePageState(this.uid);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             child: ClipPath(
               clipper: OvalTopBorderClipper(),
               child: Container(
-                child: ShowCategories(),
+                child: ShowCategories(uid),
                 padding: EdgeInsets.all(10.0),
                 height: 450,
                 decoration: BoxDecoration(

@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:healthywheels/ui_modules/product_card.dart';
 import 'package:healthywheels/util/product_property.dart';
-import 'package:healthywheels/util/show_cart_products.dart';
 
 class CartScreen extends StatefulWidget {
   String uid;
@@ -14,24 +15,45 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<Product> _cartProductList;
   double totalAmount;
   String uid;
   _CartScreenState(String uid) {
     this.uid = uid;
     totalAmount = 0;
-    _cartProductList = new List<Product>();
-    _cartProductList.add(new Product("Maize", "sub", "", 250, 2));
-    _cartProductList.add(new Product("Maize", "sub", "",  25, 3));
-    _calculateTotalAmount(_cartProductList);
   }
+
+  Product getProductDetails(product) {
+    var decodedProduct = jsonDecode(product);
+    return new Product(decodedProduct['name'], decodedProduct['subname'], decodedProduct['productId'],
+        double.parse(decodedProduct['price'].toString()), decodedProduct['count']);
+  }
+
+  makeCartProducts(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+    return snapshot.data.documents.map((doc){
+      var currentProduct = getProductDetails(json.encode(doc.data));
+      totalAmount += currentProduct.price * currentProduct.quantity;
+      return Container(child: ProductCard(currentProduct, uid),);
+    }).toList();
+  }
+
+  Widget _showCartProducts(BuildContext context) {
+    return new StreamBuilder(
+      stream: Firestore.instance.collection("users").document(uid).collection("cart").snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+        return ListView(
+          children: makeCartProducts(context, snapshot),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
           height: 450,
-          child: ShowCartProducts(_cartProductList, uid),
+          child: _showCartProducts(context),
         ),
         Container(
             child: Row(
@@ -61,12 +83,6 @@ class _CartScreenState extends State<CartScreen> {
             ))
       ],
     );
-  }
-
-  void _calculateTotalAmount(List<Product> cartProductList) {
-    for (int i = 0; i < cartProductList.length; i++) {
-      totalAmount += cartProductList[i].price * cartProductList[i].quantity;
-    }
   }
 
   void checkOut() {}

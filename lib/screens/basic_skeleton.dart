@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthywheels/screens/cart_screen.dart';
@@ -8,30 +7,21 @@ import 'package:healthywheels/ui_modules/bottom_navigation.dart';
 
 class BasicPage extends StatefulWidget {
   int page;
+  String uid;
   String categoryName;
-  BasicPage(page, {name: ""}){
+  BasicPage(page, uid, {name: ""}){
     this.page = page;
+    this.uid = uid;
     this.categoryName = name;
   }
   @override
-  _BasicPageState createState() => _BasicPageState(page, categoryName);
+  _BasicPageState createState() => _BasicPageState(page, uid, categoryName);
 }
 class _BasicPageState extends State<BasicPage> {
   int _currentPage;
   String categoryName;
   String uid;
-  _BasicPageState(this._currentPage, this.categoryName);
-
-  @override
-  void initState() {
-    this.getCurrentUser();
-    super.initState();
-  }
-
-  getCurrentUser() async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    uid = user.uid.toString();
-  }
+  _BasicPageState(this._currentPage, this.uid, this.categoryName);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +43,7 @@ class _BasicPageState extends State<BasicPage> {
   getPage(int page) {
     switch(page) {
       case 0:
-        return HomePage();
+        return HomePage(uid);
       case 1:
         return Center(child: Container(child: Text("Profile Page"),));
       case 2:
